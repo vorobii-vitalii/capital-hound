@@ -1,0 +1,89 @@
+{{> partials/header }}
+<body>
+
+<div class="container">
+
+    <div class="result-page-block">
+
+        {{> partials/title }}
+
+        <div class="result-info">
+
+            <div class="item-property">
+                <div class="item-key">
+                    Entered address
+                </div>
+                <div class="item-value">
+                    {{ enteredAddress }}
+                </div>
+            </div>
+
+            <div class="item-property">
+                <div class="item-key">
+                    Region
+                </div>
+                <div class="item-value">
+                    {{ region }}
+                </div>
+            </div>
+
+            <div class="item-property">
+                <div class="item-key">
+                    Country
+                </div>
+                <div class="item-value">
+                    {{ countryName }}
+                    <img src="{{flagUrl}}" alt="Country flag">
+                </div>
+            </div>
+
+            <div class="item-property">
+                <div class="item-key">
+                    Capital
+                </div>
+                <div class="item-value">
+                    {{ capitalName }}
+                </div>
+            </div>
+
+            <div class="item-property">
+                <div class="item-key">
+                    Capital's coordinates
+                </div>
+                <div class="item-value">
+                    {{ capitalLongitude }}, {{ capitalLatitude }}
+                </div>
+            </div>
+
+            <div class="item-property">
+                <div class="item-key">
+                    Distance from provided address
+                </div>
+                <div class="item-value">
+                    {{ distance }} km
+                </div>
+            </div>
+
+            <div class="item-property">
+                <div class="item-key">
+                    Population
+                </div>
+                <div class="item-value">
+                    {{ population }}
+                </div>
+            </div>
+
+        </div>
+
+        <button class="back-button">
+            <a href="/">Return</a>
+        </button>
+
+    </div>
+
+
+
+</div>
+
+</body>
+</html>

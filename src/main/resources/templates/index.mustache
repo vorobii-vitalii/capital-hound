@@ -1,0 +1,26 @@
+{{> partials/header }}
+<body>
+
+<div class="container">
+
+    <div class="main-page-block">
+
+        {{> partials/title }}
+
+        <form class="search-block" method="get" action="/result">
+
+            <div class="search-input-block">
+                <div class="icon"></div>
+                <input class="search-input" type="text" name="address" placeholder="Enter address">
+            </div>
+
+            <button class="search-button" type="submit">
+                Find
+            </button>
+
+        </form>
+
+    </div>
+</div>
+</body>
+</html>

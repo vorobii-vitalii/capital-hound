@@ -5,6 +5,7 @@ import com.site.capitalhound.entity.CountryInfo;
 import com.site.capitalhound.entity.SearchPlaceResult;
 import com.site.capitalhound.service.CapitalHoundService;
 import com.site.capitalhound.service.CountryInfoService;
+import com.site.capitalhound.service.ElevationService;
 import com.site.capitalhound.service.PlaceSearchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ import java.util.stream.Stream;
 public class CapitalHoundServiceImpl implements CapitalHoundService {
     private final PlaceSearchService placeSearchService;
     private final CountryInfoService countryInfoService;
+    private final ElevationService   elevationService;
 
     @Override
     public CapitalHoundResult getResultByProvidedAddress(String inputAddress) {
@@ -33,19 +35,21 @@ public class CapitalHoundServiceImpl implements CapitalHoundService {
         final var countryInfo =
                 countryInfoService.getCountryInfoByCountryCode(associatedCountryCode);
 
-        final String[] borderCountries = countryInfo.getBorders();
-
         final var capitalInfo =
                 placeSearchService.getPlaceByAddress(countryInfo.getCapital());
 
-        return mergeResults(placeByAddressInfo, countryInfo, capitalInfo);
+        final var capitalElevationLevel =
+                elevationService.getByCoordinates(capitalInfo.getPlaceLatitude(), capitalInfo.getPlaceLongitude());
+
+        return mergeResults(placeByAddressInfo, countryInfo, capitalInfo, capitalElevationLevel);
     }
 
     private static CapitalHoundResult mergeResults(
             SearchPlaceResult placeByAddressInfo,
             CountryInfo countryInfo,
-            SearchPlaceResult capitalInfo
-    ) {
+            SearchPlaceResult capitalInfo,
+            Integer capitalElevationLevel) {
+
         return CapitalHoundResult.builder()
                 .region(countryInfo.getRegion())
                 .countryName(countryInfo.getName())
@@ -57,6 +61,7 @@ public class CapitalHoundServiceImpl implements CapitalHoundService {
                 .associatedCapitalLongitude(capitalInfo.getPlaceLongitude())
                 .area(countryInfo.getArea())
                 .population(countryInfo.getPopulation())
+                .capitalElevationLevel(capitalElevationLevel)
                 .build();
     }
 

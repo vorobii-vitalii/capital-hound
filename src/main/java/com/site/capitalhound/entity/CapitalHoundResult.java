@@ -16,4 +16,5 @@ public class CapitalHoundResult {
     private Double associatedCapitalLatitude;
     private Integer population;
     private Double area;
+    private Integer capitalElevationLevel;
 }

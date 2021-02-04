@@ -40,6 +40,7 @@ public class CapitalHoundController {
         model.addAttribute("distance", calculatedDistanceBetweenCapitalAndOrigin);
         model.addAttribute("capitalLongitude", result.getAssociatedCapitalLongitude());
         model.addAttribute("capitalLatitude", result.getAssociatedCapitalLatitude());
+        model.addAttribute("capitalElevationLevel", result.getCapitalElevationLevel());
 
         return "result";
     }

@@ -38,7 +38,7 @@ public class HereGeocodePlaceApiRepository implements PlaceApiRepository<HereGeo
         }
     }
 
-    private String constructQueryWithAddress(String address) {
+    public String constructQueryWithAddress(String address) {
         return QUERY_URL_PREFIX + "?apiKey=" + apiKey + "&q=" + address;
     }
 }

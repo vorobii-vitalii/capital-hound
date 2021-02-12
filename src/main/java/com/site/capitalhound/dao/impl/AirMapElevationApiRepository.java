@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestOperations;
 
+import java.util.Map;
+
 @Repository
 @RequiredArgsConstructor
 public class AirMapElevationApiRepository implements ElevationApiRepository<AirMapElevationApiResponse> {
@@ -25,11 +27,15 @@ public class AirMapElevationApiRepository implements ElevationApiRepository<AirM
 
     @Override
     public AirMapElevationApiResponse getResponseByCoordinate(double latitude, double longitude) {
+
+        var headerParams = Map.of("X-API-Key", airMapApiKey);
+
         try {
             final ResponseEntity<AirMapElevationApiResponse> response =
                     restOperations.getForEntity(
                             constructQueryWithCoordinate(latitude, longitude),
-                            AirMapElevationApiResponse.class);
+                            AirMapElevationApiResponse.class,
+                            headerParams);
 
             if (!response.getStatusCode().equals(HttpStatus.OK)
                     || response.getBody() == null
@@ -45,7 +51,7 @@ public class AirMapElevationApiRepository implements ElevationApiRepository<AirM
         }
     }
 
-    private String constructQueryWithCoordinate(double latitude, double longitude) {
+    public String constructQueryWithCoordinate(double latitude, double longitude) {
         return API_URL_PREFIX + "?points=" + latitude + "," + longitude;
     }
 
